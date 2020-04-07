@@ -1,0 +1,9 @@
+{
+    "name": "node-bookshop",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "express": "^4.17.1",
+        "mysql2": "^2.1.0"
+    }
+}
