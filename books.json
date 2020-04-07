@@ -1,0 +1,98 @@
+[
+  {
+    "id":1002,
+    "photo":"The Shadow and the Flash_John G. London.jpg",
+    "name":"The Shadow and the Flash",
+    "author":"John G. London",
+    "price":100.5,
+    "description":"description",
+    "example_Text":"text",
+    "category":"Adventure novel",
+    "rating":0,
+    "reviews":[{"id":123,"book_id":1002,"author":"name","rating":2,"text":"some_text"}]
+  },
+  {
+    "id":1003,
+    "photo":"A Daughter of the Snows.jpg",
+    "name":"A Daughter of the Snows",
+    "author":"John G. London",
+    "price":100.5,
+    "description":"description",
+    "example_Text":"text",
+    "category":"Adventure novel",
+    "rating":0,
+    "reviews":[{"id":123,"book_id":1003,"author":"name","rating":2,"text":"some_text"}]
+  },
+  {
+    "id":1004,
+    "photo":"The Kempton-Wace Letters.jpg",
+    "name":"The Kempton-Wace Letters",
+    "author":"John G. London",
+    "price":100.5,
+    "description":"description",
+    "example_Text":"text",
+    "category":"Adventure novel",
+    "rating":0,
+    "reviews":[{"id":101,"book_id":1004,"author":"name","rating":2,"text":"some_text"}]
+  },
+  {
+    "id":1005,
+    "photo":"The Call of the Wild.jpg",
+    "name":"The Call of the Wild",
+    "author":"John G. London",
+    "price":100.5,
+    "description":"description",
+    "example_Text":"text",
+    "category":"Adventure novel",
+    "rating":0,
+    "reviews":[{"id":101,"book_id":1005,"author":"name","rating":2,"text":"some_text"}]
+  },
+  {
+    "id":1006,
+    "photo":"The Alchemist.jpg",
+    "name":"The Alchemist",
+    "author":"H. P. Lovecraft",
+    "price":100.5,
+    "description":"description",
+    "example_Text":"text",
+    "category":"Fiction",
+    "rating":0,
+    "reviews":[{"id":123,"book_id":1003,"author":"name","rating":2,"text":"some_text"}]
+  },
+  {
+    "id":1007,
+    "photo":"Ashes.jpg",
+    "name":"Ashes",
+    "author":"H. P. Lovecraft",
+    "price":100.5,
+    "description":"description",
+    "example_Text":"text",
+    "category":"Fiction",
+    "rating":0,
+    "reviews":[{"id":123,"book_id":1003,"author":"name","rating":2,"text":"some_text"}]
+  },
+  {
+    "id":1008,
+    "photo":"At the Mountains of Madness.jpg",
+    "name":"At the Mountains of Madness",
+    "author":"H. P. Lovecraft",
+    "price":100.5,
+    "description":"description",
+    "example_Text":"text",
+    "category":"Fiction",
+    "rating":0,
+    "reviews":[{"id":123,"book_id":1003,"author":"name","rating":2,"text":"some_text"}]
+  },
+  {
+    "id":1009,
+    "photo":"Azathoth.jpg",
+    "name":"Azathoth",
+    "author":"H. P. Lovecraft",
+    "price":100.5,
+    "description":"description",
+    "example_Text":"text",
+    "category":"Fiction",
+    "rating":0,
+    "reviews":[{"id":123,"book_id":1003,"author":"name","rating":2,"text":"some_text"}]
+  }
+]
