@@ -1,9 +1,5 @@
-const books = require('../books.json');
+const controller = require('../controllers/book');
 
 module.exports = (router) => {
-  router.get(`/:bookId`, function (request, response) {
-    let book = books.find(book => `${book.id}` === `${request.params.bookId}`)
-
-    return response.json({ book })
-  });
-}
+  router.get('/:bookId', controller.getBook);
+};
