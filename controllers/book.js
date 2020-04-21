@@ -18,7 +18,7 @@ const getBook = (req, res) => {
 
 const getBooks = (req, res) => {
   try {
-    const { id: bookId } = req.params;
+    const { all, category, author, price } = req.params;
     // const books = await db.book.findByPk(bookId);
     if (!books) {
       return res.status(404).json({ message: `Books not found` })
@@ -29,7 +29,19 @@ const getBooks = (req, res) => {
   }
 }
 
+const createBook = async (req, res) => {
+  try {
+    const { book } = req.params;
+    const resBook = await db.book.create(book);
+    
+    return res.status(200).json( resBook instanceof db.book)
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+}
+
 module.exports = {
   getBook,
-  getBooks
+  getBooks,
+  createBook
 }

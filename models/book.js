@@ -2,6 +2,10 @@ module.exports = (sequelize, Sequelize) => {
   const Book = sequelize.define(
     'book',
     {
+      added_by: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       id: {
         autoIncrement: true,
         primaryKey: true,
