@@ -1,11 +1,14 @@
 const app = require('./app')
+const config = require('config')
 
-const server = (port) => app.listen(port, (err) => {
+const PORT = config.get('PORT') || 4000
+
+const server = (PORT) => app.listen(PORT, (err) => {
   if (err) {
     return console.log('server falls', err)
   } else {
-    return console.log(`server is running on ${port}`)
+    return console.log(`server is running on ${PORT}`)
   };
 });
 
-server(4000);
+server(PORT);
