@@ -1,8 +1,8 @@
-const changeCase = require('change-case');
-const express = require('express');
-const requireDirectory = require('require-directory');
+const changeCase = require("change-case");
+const express = require("express");
+const requireDirectory = require("require-directory");
 
-const routes = requireDirectory(module, './');
+const routes = requireDirectory(module, "./");
 
 module.exports = (app) => {
   Object.keys(routes).forEach((routeName) => {

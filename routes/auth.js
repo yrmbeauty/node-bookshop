@@ -1,7 +1,8 @@
-const controller = require('../controllers/auth');
+const validators = require("../validators");
+const controller = require("../controllers/auth");
 
 module.exports = (router) => {
-  router.post('/auth/register', controller.register);
+  router.post("/registration", validators("auth.registration"), controller.registration);
 
-  router.post('/auth/login', controller.login);
+  router.post("/login", validators("auth.login"), controller.login);
 };

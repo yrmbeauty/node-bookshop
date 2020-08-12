@@ -1,5 +1,5 @@
-const controller = require('../controllers/book');
+const controller = require("../controllers/book");
 
 module.exports = (router) => {
-  router.get('/', controller.getBooks);
+  router.get("/", controller.getBooks);
 };
