@@ -9,7 +9,6 @@ module.exports = {
   ],
   login: [
     check("password", "Пароль отсутсвует").exists(),
-    check("login", "Логин отсутсвует").exists(),
     check("email", "Почта отсутсвует").normalizeEmail().exists(),
     check("email", "Почта введена некорректно").normalizeEmail().isEmail(),
   ]

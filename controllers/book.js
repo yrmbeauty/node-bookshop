@@ -33,8 +33,8 @@ const createBook = async (req, res) => {
   try {
     const { book } = req.params;
     const resBook = await db.book.create(book);
-    
-    return res.status(200).json( resBook instanceof db.book);
+
+    return res.status(200).json(resBook instanceof db.book);
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -43,5 +43,5 @@ const createBook = async (req, res) => {
 module.exports = {
   getBook,
   getBooks,
-  createBook
+  createBook,
 };
