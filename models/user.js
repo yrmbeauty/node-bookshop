@@ -33,6 +33,7 @@ module.exports = (sequelize, Sequelize) => {
 
   User.associate = (models) => {
     models.user.hasMany(models.comment);
+    models.user.hasMany(models.book);
   };
 
   return User;
