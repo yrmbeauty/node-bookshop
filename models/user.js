@@ -19,16 +19,6 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    downloaded_books: {
-      type: Sequelize.STRING,
-      allowNull: true,
-      unique: true,
-    },
-    books_rating: {
-      type: Sequelize.STRING,
-      allowNull: true,
-      unique: true,
-    },
   });
 
   User.associate = (models) => {

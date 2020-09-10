@@ -7,15 +7,6 @@ const db = require("../models");
 
 const registration = async (req, res) => {
   try {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      return res.status(400).json({
-        message: "Некорректные данные при регистрации",
-        errors: errors.array(),
-      });
-    }
-
     const { email, password } = req.body;
 
     const candidate = await db.user.findOne({ where: { email } });
@@ -40,17 +31,7 @@ const registration = async (req, res) => {
 // LOGIN-------------------------------------------------->
 const login = async (req, res) => {
   try {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty) {
-      return res.status(400).json({
-        errors: errors.array(),
-        message: "Некорректные данные при входе в систему",
-      });
-    }
-
     const { email, password } = req.body;
-
     const user = await db.user.findOne({
       where: { email },
     });
@@ -68,16 +49,13 @@ const login = async (req, res) => {
         message: "Неверный пароль, попробуйет снова",
       });
     }
-
-    const token = JWT.sign(
-      { userId: user.id, email: email },
-      CONFIG.jwtSecret,
-      { expiresIn: "1h" }
-    );
+    const expiresIn = CONFIG.expiresIn;
+    const token = JWT.sign({ id: user.id, email: email }, CONFIG.jwtSecret, {
+      expiresIn,
+    });
 
     return res.status(200).json({
       token,
-      userId: user.id,
       email: email,
     });
   } catch (err) {

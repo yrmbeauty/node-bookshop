@@ -1,12 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
   const Book = sequelize.define("book", {
-    // added_by: {
-    //   type: Sequelize.INTEGER,
-    //   references: {
-    //     model: "User",
-    //     key: "id",
-    //   },
-    // },
     id: {
       autoIncrement: true,
       primaryKey: true,
@@ -24,10 +17,6 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    author: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
     description: {
       type: Sequelize.TEXT,
       allowNull: false,
@@ -42,6 +31,13 @@ module.exports = (sequelize, Sequelize) => {
       defaultValue: 0,
     },
   });
+
+  Book.associate = (models) => {
+    models.book.hasMany(models.comment);
+    models.book.belongsTo(models.author);
+    models.book.belongsTo(models.category);
+    models.book.belongsTo(models.user);
+  };
 
   return Book;
 };
