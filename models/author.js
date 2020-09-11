@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const Author = sequelize.define("author", {
+  const Author = sequelize.define('author', {
     id: {
       autoIncrement: true,
       primaryKey: true,
@@ -9,6 +9,8 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
+    createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
+    updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
   });
 
   Author.associate = (models) => {
