@@ -1,18 +1,26 @@
-const db = require("../models");
-const multer = require("multer");
-const { bookFilter: makeFilter, getMyColletcion } = require("./book.filter");
-// const books = require("../books.json");
+const db = require('../models');
+const multer = require('multer');
+const { makeFilter, getMyCollection } = require('./book.filter');
 
 const getBook = async (req, res) => {
   try {
     const { bookId } = req.params;
-    // const book = books.find((book) => book.id == bookId);
-    const book = await db.book.findOne(bookId);
+    const book = await db.book.findOne({
+      where: { id: bookId },
+      include: [
+        {
+          model: db.category,
+        },
+        {
+          model: db.author,
+        },
+      ],
+    });
     if (!book) {
       return res.status(404).json({ message: `Book with ${bookId} not found` });
     }
 
-    return res.json({ book });
+    return res.json(book);
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -20,18 +28,17 @@ const getBook = async (req, res) => {
 
 const getBooks = async (req, res, next) => {
   try {
-    const filteredBooks = {};
+    const filter = makeFilter({
+      ...req.query,
+      userId: req.user && req.user.id,
+    });
 
-    if (req.user) {
-      filteredBooks = getMyColletcion();
-    } else {
-      filteredBooks = makeFilter(req.query);
-    }
+    const data = await db.book.findAndCountAll(filter);
 
-    if (!filteredBooks) {
-      return res.status(404).json({ message: "Books not found" });
+    if (!data.count) {
+      return res.status(404).json({ message: 'Books not found' });
     }
-    return res.json({ filteredBooks });
+    return res.json({ data });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -44,12 +51,13 @@ const createBook = async (req, res) => {
       file: { originalname, mimetype },
       user,
     } = req;
-
     const candidate = await db.book.findOne({
       where: { name, author, userId: user.id },
     });
+
     if (candidate)
-      return res.status(400).json({ message: "Такую книгу вы уже добавляли" });
+      return res.status(400).json({ message: 'Такую книгу вы уже добавляли' });
+
     const resBook = await db.book.create({
       userId: user.id,
       photo: originalname,
@@ -69,21 +77,21 @@ const createBook = async (req, res) => {
 const multerConf = {
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, "./public/uploads");
+      cb(null, './public/uploads');
     },
     filename: function (req, file, cb) {
       cb(
         null,
         req.body.name +
-          file.originalname.slice(file.originalname.lastIndexOf("."))
+          file.originalname.slice(file.originalname.lastIndexOf('.'))
       );
     },
   }),
   fileFilter: (req, file, cb) => {
     if (
-      file.mimetype === "image/png" ||
-      file.mimetype === "image/jpg" ||
-      file.mimetype === "image/jpeg"
+      file.mimetype === 'image/png' ||
+      file.mimetype === 'image/jpg' ||
+      file.mimetype === 'image/jpeg'
     ) {
       cb(null, true);
     } else {
@@ -92,10 +100,7 @@ const multerConf = {
   },
 };
 
-const upload = multer({
-  storage: multerConf.storage,
-  fileFilter: multerConf.fileFilter,
-}).single("photo");
+const upload = multer(multerConf).single('photo');
 
 module.exports = {
   getBook,
