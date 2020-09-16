@@ -3,12 +3,51 @@ const { Op } = db.Sequelize;
 const DEFAULT_LIMIT = 10;
 const DEFAULT_PAGE = 1;
 
-const bookFilter = (params) => {
-  const { limit, page, author, category, price, userId } = params;
+const converQueryToArray = (str) => {
+  let result;
+
+  const useFor = (myCase) => {
+    const arr = [];
+    for (let i = 0; i < myCase; i = i + 2) {
+      arr.push(parseInt(str[i]));
+    }
+    return arr;
+  };
+  switch (str.length) {
+    case 7:
+      result = useFor(7);
+      break;
+    case 5:
+      result = useFor(5);
+      break;
+    case 3:
+      result = useFor(3);
+      break;
+    case 1:
+      result = useFor(1);
+      break;
+
+    default:
+      break;
+  }
+
+  return result;
+};
+
+const makeFilter = (params) => {
+  const { limit, page, authors, categories, price, userId } = params;
   const filter = {
     where: {},
     include: [],
   };
+  filter.include.push(
+    {
+      model: db.category,
+    },
+    {
+      model: db.author,
+    }
+  );
 
   if (parseInt(limit) !== 0) {
     filter.limit = DEFAULT_LIMIT;
@@ -16,31 +55,20 @@ const bookFilter = (params) => {
     filter.limit = parseInt(limit);
   }
 
-  if (page) {
-    filter.offset = filter.limit * (parseInt(page) - 1);
-  } else {
-    filter.offset = filter.limit * (DEFAULT_PAGE - 1);
-  }
+  filter.offset = filter.limit * ([page ? parseInt(page) : DEFAULT_PAGE] - 1);
 
   if (price) {
-    // add between
     filter.where.price = {
       [Op.between]: [parseInt(price[0]), parseInt(price[1])],
     };
   }
 
-  if (category) {
-    filter.where.categoryId = parseInt(category);
-    filter.include.push({
-      model: db.category,
-    });
+  if (categories) {
+    filter.where.categoryId = converQueryToArray(categories);
   }
 
-  if (author) {
-    filter.where.authorId = parseInt(author);
-    filter.include.push({
-      model: db.author,
-    });
+  if (authors) {
+    filter.where.authorId = converQueryToArray(authors);
   }
 
   if (userId) {
@@ -50,5 +78,5 @@ const bookFilter = (params) => {
 };
 
 module.exports = {
-  bookFilter,
+  makeFilter,
 };
